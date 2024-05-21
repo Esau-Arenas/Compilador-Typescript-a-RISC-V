@@ -1,0 +1,317 @@
+*{
+    padding: 10px;
+    margin: 0;
+    box-sizing: border-box;
+    /*height: 100vh;*/
+    font-size: 20px;
+    color: white;
+}
+/*------------------------------------------PRESTAÑAS */
+.main{
+    padding-top: 10px;
+    height: 100%;
+    width: 100%;
+    border: solid #FAFAFA;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.div-pestañas{
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.div-cuerpo{
+    height: 90%;
+   /* border: solid #FAFAFA;*/
+    border-radius: 15px;
+    background-color: #c5270b;
+}
+.pes{
+    background-color: #c5270b;
+    color: #FAFAFA;
+    width: 100px;
+    margin: 0 5px;
+    border-radius: 8px;
+    height: 95%;
+}
+.configuraciones{
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+}
+/*------------------------------------------BODY */
+.card {
+    width: 42%;
+    min-height: 500px;
+    margin: 0 auto;
+    background-color: #011522;
+    border-radius: 8px;
+    z-index: 1;
+}
+   
+.tools {
+    display: flex;
+    align-items: start;
+    padding: 9px;
+    /*background-color: red;*/
+    width: 190px;
+    height: 50px;
+   }
+   
+.circle {
+    padding: 0 4px;
+}
+   
+.box {
+    display: inline-block;
+    align-items: center;
+    width: 10px;
+    height: 10px;
+    padding: 1px;
+    border-radius: 50%;
+    
+}
+   
+.red {
+    background-color: #fd312d;
+}
+   
+.yellow {
+    background-color: #ffbd44;
+}
+   
+.green {
+    background-color: #00ca4e;
+}
+   
+.card__content{
+    width: 100%;
+    height: 90%;
+    padding: 5px;
+}
+
+#tCard{
+    padding-top: 20px;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+body{
+    background-color: #273746;
+}
+
+.texto_ingresado{
+    width: 97%;
+    border: 10px;
+    height: 99%;
+    margin-top: 2px;
+    text-decoration: none;
+    margin-left: 10px;
+    background-color: #011522;
+    outline: none;
+    border-radius: 8px;
+    z-index: 1;
+    white-space: nowrap; /* evita que el texto se divida en varias líneas */
+    overflow-x: scroll;
+}
+
+
+.texto_ingresado::placeholder{
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+.editor{
+    margin: 0 auto;
+    margin-left: 18px;
+    width: 97%;
+    height: 95%;
+    border: 10px;
+    margin-top: 10px;
+    background-color: #011522;
+    border-radius: 8px;
+    z-index: 1;
+    outline: none;
+    white-space: nowrap; /* evita que el texto se divida en varias líneas */
+    overflow-x: scroll;
+    
+}
+
+.div-padre, .div-botons, .div-reportes{
+    display: flex;
+    flex-direction: column;
+
+    
+}
+.div-padre{
+    width: 10%;
+   /* background-color: aqua;*/
+    height: 90%;
+}
+
+.div-botons{
+    /*background-color: red;*/
+    height: 70%;
+}
+.div-reportes{
+    height: 30%;
+}
+
+.div-botons .boton
+, .div-reportes .boton{
+  font-family: monospace;
+  font-size: 0.70rem;
+  color: #FAFAFA;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #FAFAFA;
+  background: #252525;
+  box-shadow: 3px 3px #fafafa;
+  cursor: pointer;
+  margin: 5px 0;
+
+}
+
+.div-botons .boton:active
+, .div-reportes .boton:active{
+    box-shadow: none;
+  transform: translate(3px, 3px);
+
+}
+
+/*------------------------------------------INPUT GUARDAR*/
+.input-group {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
+  
+  .input {
+    height: 100%;
+    padding: 0 1rem;
+    color: #fff;
+    font-size: 15px;
+    border: 1px solid #252525;
+    border-radius: 6px 0 0 6px;
+    background-color: transparent;
+  }
+  
+  .button--submit {
+    height: 100%;
+    padding: .5em 1em;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    background-color: #252525;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+  }
+  
+  .button--submit:hover {
+    background-color: #252525;
+  }
+  
+  .input:focus, .input:focus-visible {
+    border-color: #3898EC;
+    outline: none;
+  }
+  
+/*------------------------------------------BUTTON CODE*/
+.game-button {
+    height: 50px;
+    width: 190px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    box-shadow: 2px 2px 10px #ff7979;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .play-icon {
+    width: 50px;
+    height: 50px;
+    fill: #fff;
+    margin-right: 2px;
+  }
+  
+  .game-button:hover {
+    background-color: #00ca4e;
+    /*color: #ff7979;*/
+    color: white;
+    box-shadow: 2px 2px 20px #2f3640;
+    transform: translateY(-2px);
+  }
+
+/*------------------------------------------REPORTES*/
+.REPORTES{
+    overflow: auto;
+    background-color: #000;
+    /*width: 100%;
+    height: 400px;*/
+}
+
+#btnAst{
+    box-shadow: none;
+    background-color: #ffbd44;
+}
+
+
+#ERRORES,
+#TOKENS, 
+#TablaS{
+    background-color: #000;
+}
+
+.encabezado{
+    color: #000;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #fff;
+ }
+ th, td {
+    width: 25%;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid #000;
+    border-collapse: collapse;
+    padding: 0.3em;
+    caption-side: bottom;
+ }
+ caption {
+    padding: 0.3em;
+    color: #fff;
+     background: #000;
+ }
+ th {
+    background: #ffbd44;
+ }
+
+ #btnErrores,
+ #btnTokens,
+ #btnTable{
+    box-shadow: none;
+    background-color: #0dd6f1;
+ }

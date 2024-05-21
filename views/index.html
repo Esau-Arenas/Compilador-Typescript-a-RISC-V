@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PROYECTO 1</title>
+    <link href="style.css" rel="stylesheet" /> 
+    <script
+      src="https://kit.fontawesome.com/7e5b2d153f.js"
+      crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1><center>PROYECTO 2 - OLC2</center></h1>
+    <section id="consola" >
+      <div class="main">
+        <div class="div-pestañas" id="div-pestañas">
+          <button class="pes" onclick="irPestaña(0)">1</button>
+        </div>
+        <div class="div-cuerpo">
+          <div id="tCard">
+            <div class="card">
+              <div class="tools">
+                <div class="circle">
+                  <span class="red box"></span>
+                </div>
+                <div class="circle">
+                  <span class="yellow box"></span>
+                </div>
+                <div class="circle">
+                  <span class="green box"></span>
+                </div>
+              </div>
+              
+              <div class="card__content">
+                  
+                  <textarea id="output" onkeyup="loadPestaña()" class="texto_ingresado" placeholder="Entrada"></textarea>
+              </div>
+            </div>
+            <div class="card">
+              <div class="tools">
+                <div class="circle">
+                  <span class="red box"></span>
+                </div>
+                <div class="circle">
+                  <span class="yellow box"></span>
+                </div>
+                <div class="circle">
+                  <span class="green box"></span>
+                </div>
+              </div>
+              
+              <div class="card__content">
+                <textarea class="editor"  id = "editor" placeholder="Consola"></textarea>
+              </div>
+            </div>
+            <div class="div-padre">
+              <div class="div-botons">
+                
+                <button class="boton" onclick="addPestaña()">Crear Pestaña</button>
+                <button class="boton" onclick="delPestaña()">Eliminar Pestaña</button>
+                <button class="boton" onclick="ErrorReporte()">Reporte Errores</button>
+                <button class="boton" onclick="TablaReporte()">Tabla Simbolos</button>
+                <button class="boton" onclick="ReporteTokens()">Tabla de Tokens</button>
+              </div>
+            </div>
+    
+      
+            <!--<textarea class="texto_ingresado" placeholder="Hola Mundo!"></textarea>
+              <iframe onkeyup="actualizar()" class="editor" id="editor" srcdoc="<font color = white FACE = arial>Resultados aqui \n hola</font>"></iframe>
+            <iframe class="editor" id="editor" srcdoc="Resultados aqui"></iframe>-->
+
+          </div>
+          <div class="configuraciones">
+            <input type="file" onchange="loadFile(this.files[0])">
+            <div class="input-group">
+              <input type="email" class="input" id="Email" name="Email" placeholder="fileName" autocomplete="off">
+              <input id="descargar" onclick="saveText()" class="button--submit" value="Guardar" type="submit">
+            </div>
+            <button id="btnConsola" onclick="actualizar()" class="game-button">
+              <svg class="play-icon" viewBox="0 0 40 40">
+                  <path d="M 10,10 L 30,20 L 10,30 z"></path>
+              </svg>
+              Run
+          </button>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    <section id="ERRORES" hidden>
+      <div class="container">
+        <div class="mt-5 mb-5">
+            <h1><center>Reporte Errores</center></h1>
+        </div>
+        <div class="row">
+            
+            <div >
+                <div id="studentsTable">
+                    <table class="table table-striped">
+                        <thead >
+                            <tr >
+                                <th scope="col" class="encadezado">No.</th>
+                                <th scope="col" class="encadezado">Tipo de Error</th>
+                                <th scope="col" class="encadezado">Descripcion</th>
+                                <th scope="col" class="encadezado">Linea</th>
+                                <th scope="col" class="encadezado">Columna</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div>
+          <button id="btnErrores" onclick="hideErrores()" class="game-button">Back</button>
+        </div>
+
+      </div>
+    </section>
+  
+  <section id="TOKENS" hidden>
+    <div class="container">
+      <div class="mt-5 mb-5">
+          <h1><center>Reporte de Tokens</center></h1>
+      </div>
+      <div class="row">
+          
+          <div >
+              <div id="studentsTable">
+                  <table class="table table-striped">
+                      <thead >
+                          <tr >
+                              <th scope="col" class="encadezado">Lexema</th>
+                              <th scope="col" class="encadezado">Token</th>
+                              <th scope="col" class="encadezado">Linea</th>
+                              <th scope="col" class="encadezado">Columna</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      <div>
+        <button id="btnTokens" onclick="hideTokens()" class="game-button">Back</button>
+      </div>
+
+    </div>
+  
+  </section>
+    <section id="TablaS" hidden>
+      <div class="container">
+        <div class="mt-5 mb-5">
+            <h1><center>Tabla de Simbolos</center></h1>
+        </div>
+        <div class="row">
+            
+            <div >
+                <div id="SymbolTable">
+                    <table class="table table-striped">
+                        <thead >
+                            <tr >
+                                <th scope="col" class="encadezado">Identificador</th>
+                                <th scope="col" class="encadezado">Tipo</th>
+                                <th scope="col" class="encadezado">DataType</th>
+                                <th scope="col" class="encadezado">Entorno</th>
+                                <th scope="col" class="encadezado">Linea</th>
+                                <th scope="col" class="encadezado">Columna</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div>
+          <button id="btnTable" onclick="hideTable()" class="game-button">Back</button>
+        </div>
+
+      </div>
+    </section>
+    
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+    crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js" integrity="sha512-FHsFVKQ/T1KWJDGSbrUhTJyS1ph3eRrxI228ND0EGaEp6v4a/vGwPWd3Dtd/+9cI7ccofZvl/wulICEurHN1pg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+
+    <script src="index.js"></script>
+  </body>
+  
+</html>
