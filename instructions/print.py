@@ -11,15 +11,10 @@ class Print(Instruction):
     def ejecutar(self, ast, env, gen):
         for exp in self.Exp:
             val = exp.ejecutar(ast, env, gen)
-            print("val a imprimir: "+str(val.type))
+
+            #Validación del tipo de dato a imprimir
 
             if val.type == ExpressionType.INTEGER:
-                print("entro a integer")
-                # Imprimiendo expresion
-                #gen.add_li('t3', str(val.value))
-                gen.add_li('a0', '2')
-                gen.add_li('a7', '1')
-                gen.add_system_call()
                 gen.add_br()
                 gen.add_li('t3', str(val.value))
                 gen.add_lw('a0', '0(t3)')

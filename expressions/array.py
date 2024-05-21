@@ -16,7 +16,7 @@ class Array(Instruction):
         for exp in self.list_exp:
             indexExp = exp.ejecutar(ast, env, gen)
             arrVal.append(indexExp)
-        print("entre a array")
+
         return Value("", arrVal, ExpressionType.ARRAY, [], [], [])
 
         

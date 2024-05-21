@@ -3,10 +3,7 @@ import parser.ply.lex as Lex
 import parser.ply.yacc as yacc
 
 # Expressions imports
-
 from environment.types import ExpressionType
-from environment.ast import Ast
-from environment.error import Error
 from environment.errores import agregar_error
 from expressions.primitive import Primitive
 from expressions.operation import Operation
@@ -19,8 +16,6 @@ from expressions.continue_statement import Continue
 from expressions.ternario import Ternario
 from expressions.call import Call
 from expressions.return_statement import Return
-from expressions.interface_access import InterfaceAccess
-from expressions.interface_object import InterfaceObject
 
 # Instructions imports
 from instructions.print import Print
@@ -28,7 +23,6 @@ from instructions.declaration import Declaration
 from instructions.assignment import Assignment
 from instructions.operator_assigment import OperatorAssignment
 from instructions.array_declaration import ArrayDeclaration
-from instructions.matrix_declaration import MatrixDeclaration
 from instructions.lower import Lower
 from instructions.upper import Upper
 from instructions.to_string import ToString
@@ -42,8 +36,7 @@ from instructions.switch import Switch
 from instructions.case import Case
 from instructions.function import Function
 from instructions.options_array import OptionArray
-from instructions.interface import Interface
-from instructions.interface_declaration import InterfaceDeclaration
+
 
 class codeParams:
     def __init__(self, line, column):
@@ -73,10 +66,6 @@ reserved_words = {
     'continue' : 'CONTINUE',
     'return' : 'RETURN',
     'function' : 'FUNC',
-    'interface' : 'INTERFACE',
-    'Object' : 'OBJECT',
-    'keys' : 'KEYS',
-    'values' : 'VALUES',
     'toLowerCase' : 'TOLOWER',
     'toUpperCase' : 'TOUPPER',
     'toString' : 'TOSTRING',
@@ -277,7 +266,6 @@ def p_instruction_list(t):
                 | whileinstruction 
                 | declaration
                 | arraydeclaration
-                | matrixdeclaration
                 | assignment
                 | assignmentsuma
                 | assignmentresta
@@ -286,8 +274,6 @@ def p_instruction_list(t):
                 | functionstmt
                 | call
                 | returnstmt
-                | interfacecreation
-                | interdeclaration
                 | toLowerinstruction
                 | toUpperinstruction
                 | parseintinstruction
@@ -386,92 +372,6 @@ def p_instruccion_array_declaration(t):
     params = get_params(t)
     t[0] = ArrayDeclaration(params.line, params.column, t[2], t[4], t[8],t[1])
 
-#-------------------------------------------------------------------------------------------------
-    #DECLARACION DE MATRICES 
-def p_instruction_const_matrix_declaration(t):
-    '''matrixdeclaration : CONST ID DOSPTS type corchetes IG matrixexpression PYC
-                        | VAR ID DOSPTS type corchetes IG matrixexpression PYC'''
-    params = get_params(t)
-    t[0] = MatrixDeclaration(params.line, params.column, t[2], t[4], t[7], t[1])
-
-def p_corchetes(t):
-    '''corchetes : corchetes CORIZQ CORDER
-              | CORIZQ CORDER '''
-    if len(t) == 4:
-        t[0] = t[1] + '[]'
-    else:
-        t[0] = '[]'
-
-def p_expression_empty_list(t):
-    'matrixexpression : CORIZQ CORDER'
-    t[0] = []
-
-#EXPRESION TIPO MATRIX PRIMITIVA
-def p_expression_matrix(t):
-    'matrixexpression : CORIZQ list_elements CORDER'
-    t[0] = t[2]
-
-def p_expression_list_matrix(t):
-    '''list_elements : list_elements COMA value
-                    | value '''
-    arr = []
-    if len(t) > 2:
-        arr = t[1] + [t[3]]
-    else:
-        arr.append(t[1])
-    t[0] = arr
-
-def p_value_num(t):
-    'value : ENTERO'
-    t[0] = t[1]
-
-def p_value_list(t):
-    'value : matrixexpression'
-    t[0] = t[1]
-
-# ACCEDER A MATRIZ
-'''def p_expression_lista_matriz(t):
-    \'''listArray : listArray listaindices\'''
-    params = get_params(t)
-
-    t[0] = MatrixAccess(params.line, params.column, t[1], t[2])  
-'''
-
-
-def p_indices_multiple(t):
-    '''listaindices : listaindices indice
-                    | indice'''
-    lis = []
-    if len(t) > 2:
-        lis = t[1] + [t[2]]
-    else:
-        lis.append(t[1])
-    t[0] = lis
-
-def p_indice(t):
-    'indice : CORIZQ ENTERO CORDER'
-    t[0] = t[2]
-
-#.................................................................................................
-
-# Declaracion de INTERFACE --------------------------------------------------------------------------------
-def p_instruction_interface_declaration(t):
-    '''interdeclaration : VAR ID DOSPTS ID IG LLAVEIZQ interfaceContent LLAVEDER PYC
-                        | CONST ID DOSPTS ID IG LLAVEIZQ interfaceContent LLAVEDER PYC'''
-    params = get_params(t)
-    t[0] = InterfaceDeclaration(params.line, params.column, t[2], t[4], t[7])
-
-def p_instruction_interface_content(t):
-    '''interfaceContent : interfaceContent COMA ID DOSPTS expression
-                | ID DOSPTS expression'''
-    arr = []
-    if len(t) > 5:
-        param = {t[3] : t[5]}
-        arr = t[1] + [param]
-    else:
-        param = {t[1] : t[3]}
-        arr.append(param)
-    t[0] = arr
 
 # Asignacion de valores --------------------------------------------------------------------------------
 def p_instruccion_assignment(t):
@@ -510,26 +410,6 @@ def p_instruction_call_function(t):
     else:
         t[0] = Call(params.line, params.column, t[1], [])
     
-# Creacion de interfaces --------------------------------------------------------------------------------
-def p_instruction_interface_creation(t):
-    'interfacecreation : INTERFACE ID LLAVEIZQ attributeList LLAVEDER PYC'
-    params = get_params(t)
-    
-    t[0] = Interface(params.line, params.column, t[2], t[4])
-
-def p_instruction_interface_attribute(t):
-    '''attributeList : attributeList ID DOSPTS type PYC
-                | attributeList ID DOSPTS ID PYC
-                | ID DOSPTS ID PYC
-                | ID DOSPTS type PYC'''
-    arr = []
-    if len(t) > 5:
-        param = {t[2] : t[4]}
-        arr = t[1] + [param]
-    else:
-        param = {t[1] : t[3]}
-        arr.append(param)
-    t[0] = arr
     
 # Definicion de funciones --------------------------------------------------------------------------------
 def p_instruction_function(t):
@@ -791,8 +671,7 @@ def p_expression_list_array(t):
     elif len(t) > 3:
         if t[3] == 'length':
             t[0] = OptionArray(params.line, params.column, t[1], 'length', None)
-        else:
-            t[0] = InterfaceAccess(params.line, params.column, t[1], t[3])
+        
     else:
         t[0] = Access(params.line, params.column, t[1])
 
@@ -800,16 +679,6 @@ def p_instruccion_typeof(t):
     'expression : TYPEOF ID'
     params = get_params(t)
     t[0] = Typeof(params.line, params.column,t[2])
-
-def p_expression_interface_options(t):
-    '''expression : OBJECT PUNTO KEYS PARIZQ expression PARDER
-                | OBJECT PUNTO VALUES PARIZQ expression PARDER'''
-    params = get_params(t)  
-    print("Reconociendo objeto")
-    if t[3] == 'keys':
-        t[0] = InterfaceObject(params.line, params.column, t[5], 'keys')
-    else:
-        t[0] = InterfaceObject(params.line, params.column, t[5], 'values')
 
 def p_error(p):
     if p:
@@ -822,11 +691,6 @@ def get_params(t):
     lexpos = t.lexpos if isinstance(t.lexpos, int) else 0  # Verificar si lexpos es un entero
     column = lexpos - t.lexer.lexdata.rfind('\n', 0, lexpos) 
     return codeParams(line, column)
-
-#Generar analizador
-#lexer = Lex.lex()
-#parser = yacc.yacc()
-
 
 class Parser:
     def __init__(self):

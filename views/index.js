@@ -97,21 +97,6 @@ function actualizar(){
 }
 
 //-----------------------------#MANEJO DE ARCHIVOS
-function showAst(body){
-  let url = 'https://quickchart.io/graphviz?graph=';
-  console.log(body)
-  $("#reporteAST").attr("src", url + body);
-
-}
-
-function Ast(){
-  this.ocultar("consola","repAst");
-  console.log(cuerpoAst)
-  d3.select("#reporteAST").graphviz()
-  .width("45vw")
-  .height("82vh")
-  .renderDot(cuerpoAst);
-}
 
 function ErrorReporte(){
   this.ocultar("consola","ERRORES");
@@ -130,27 +115,6 @@ function ErrorReporte(){
       <td>${columnas[1]}</td>
       <td>${columnas[2]}</td>
       <td>${columnas[3]}</td>
-    </tr>
-`;
-  }
-  $('#studentsTable tbody').html(cuerpo)
-  }
-  
-}
-
-function ReporteTokens(){
-  this.ocultar("consola","TOKENS");
-  let cuerpo = "";
-  console.log(tokens)
-  if(tokens != "ninguno"){
-    console.log(tokens.length)
-  for(var i = 0; i < errores.length; i++){
-    cuerpo += `
-    <tr>
-      <td>${tokens[i].lexema}</td>
-      <td>${tokens[i].Vtoken}</td>
-      <td>${tokens[i].line}</td>
-      <td>${tokens[i].column}</td>
     </tr>
 `;
   }
@@ -207,10 +171,6 @@ function TablaReporte(){
 
 function hideErrores(){
   this.ocultar("ERRORES", "consola")
-}
-
-function hideTokens(){
-  this.ocultar("TOKENS", "consola")
 }
 
 function hideTable(){

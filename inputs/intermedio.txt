@@ -1,0 +1,74 @@
+console.log("----ARCHIVO INTERMEDIO----");
+
+console.log("==IFs ANIDADOS==");
+var a: number = 909;
+var aux: number = 10;
+var bol: boolean = true;
+
+if (aux > 0) {
+    console.log("PRIMER IF CORRECTO");
+    if (bol && (aux == 1)) {
+        console.log("SEGUNDO IF INCORRECTO");
+    } else if (aux > 10) {
+        console.log("SEGUNDO IF INCORRECTO");
+    } else {
+        console.log("SEGUNDO IF CORRECTO");
+    }
+} else if (aux <= 3) {
+    console.log("PRIMER IF INCORRECTO");
+    if (bol && (aux == 1)) {
+        console.log("SEGUNDO IF INCORRECTO");
+    } else if (aux > 10) {
+        console.log("SEGUNDO IF INCORRECTO");
+    } else {
+        console.log("SEGUNDO IF CORRECTO");
+    }
+} else if (aux == a) {
+    console.log("PRIMER IF INCORRECTO");
+    if (bol && (aux == 1)) {
+        console.log("SEGUNDO IF INCORRECTO");
+    } else if (aux > 10) {
+        console.log("SEGUNDO IF INCORRECTO");
+    } else {
+        console.log("SEGUNDO IF CORRECTO");
+    }
+}
+
+
+console.log("==SWITCH==");
+const numero: number = 4;
+switch (numero) {
+    case 1:
+        console.log("Uno");
+        break;
+    case 2:
+        console.log("Dos");
+        break;
+    case 3:
+        console.log("Tres");
+        break;
+    case 4:
+        console.log("Cuatro");
+        break;
+    case 5:
+        console.log("Cinco");
+        break;
+    default:
+        console.log("Invalid day");
+        break;
+}
+
+console.log("==TRANSFERENCIA=");
+a = 0;
+while (a < 5) {
+    a = a + 1;
+    if (a == 3) {
+        console.log("a");
+        continue;
+    } else if (a == 4) {
+        console.log("b");
+        break;
+    }
+    console.log("El valor de a es:", a);
+}
+console.log("Se debió imprimir");

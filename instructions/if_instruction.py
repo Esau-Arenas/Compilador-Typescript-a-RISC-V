@@ -14,14 +14,14 @@ class If(Instruction):
     def ejecutar(self, ast, env, gen):
         # Obtener simbolo
         validate = self.exp.ejecutar(ast, env, gen)
-        print(validate.intValue)
 
+        # Crear etiquetas
         exit = gen.new_fin()
         true = gen.new_label()
         false = gen.new_label()
         gen.add_li('t1', '1')
         gen.add_li('t2', validate.intValue)
-        print("valor del inmediato: ",validate.intValue)
+
         gen.add_operation('beq', 't1', 't2', true)
         gen.add_jump(false)
 
@@ -40,17 +40,3 @@ class If(Instruction):
         # Etiqueta de salida
         gen.add_code(f"{exit}: \n")
 
-
-        # Evaluar
-        '''if validate.value:
-            # Crear entorno del If
-            if_env = Environment(env, "IF")
-            returnValue = StatementExecuter(self.block, ast, if_env, gen)
-            if returnValue != None:
-                return returnValue
-        else:
-            if_env = Environment(env, "IF")
-            returnValue = StatementExecuter(self.else_block, ast, if_env, gen)
-            if returnValue != None:
-                return returnValue
-        return None'''

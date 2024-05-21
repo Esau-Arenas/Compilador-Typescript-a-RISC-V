@@ -17,20 +17,25 @@ class ArrayAccess(Expression):
         sym = self.array.ejecutar(ast, env, gen)
         print("Tipo: ",sym.type)
         
-        print("Valor: ", sym.value)
+        #Obtener los valores del arreglo
         valores = getValueVar(sym.value)
-        print("ID: ", valores)
-        print("Ejecutando ArrayAccess")
+        
+        # Traer el indice
         indexVal = self.index.ejecutar(ast, env, gen)
-        valor_retorno= valores[indexVal.intValue]
-        print(valor_retorno)
-        
-        #Accediendo al indice
-        temp = gen.new_temp() # 4
-        gen.add_br()
-        gen.add_li('t0', str(valor_retorno))
-        gen.add_li('t3', str(temp))
-        gen.add_sw('t0', '0(t3)')
+        try:
+            valor_retorno= valores[indexVal.intValue]
+            print(valor_retorno)
+            
+            #Accediendo al indice
+            temp = gen.new_temp() # 4
+            gen.add_br()
+            gen.add_li('t0', str(valor_retorno))
+            gen.add_li('t3', str(temp))
+            gen.add_sw('t0', '0(t3)')
 
-        
-        return  Value(str(temp), int(valor_retorno) , ExpressionType.INTEGER, [], [], [])
+            
+            return  Value(str(temp), int(valor_retorno) , ExpressionType.INTEGER, [], [], [])
+    
+        except:
+            agregar_error("Semantico", "No se encontró indice del arreglo: "+sym.value, self.line, self.col)
+            

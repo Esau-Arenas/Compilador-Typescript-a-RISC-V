@@ -11,5 +11,5 @@ class Break(Expression):
     def ejecutar(self, ast, env, gen):
         if env.LoopValidation():
             return Symbol(line=self.line, col=self.col, value=None, type=ExpressionType.BREAK)
-        agregar_error("Sintactico","La sentencia de transferencia no se encuentra dentro de un ciclo",self.line, self.col)
+        agregar_error("Sintactico","La sentencia de transferencia 'Break' no se encuentra dentro de un ciclo",self.line, self.col)
         return Symbol(line=self.line, col=self.col, value=None, type=ExpressionType.NULL)
